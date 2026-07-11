@@ -1,6 +1,6 @@
 # Selenium AI Web Framework — Python
 
-A GitHub-ready web UI automation framework using **Python, Selenium, pytest, Page Objects, HTML reports, screenshots, CI, and optional AI-assisted diagnostics**.
+Web UI automation framework using **Python, Selenium, pytest, Page Objects, HTML reports, screenshots, CI, and optional AI-assisted diagnostics**.
 
 ## What is included
 
