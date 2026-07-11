@@ -1,0 +1,55 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "selenium-ai-web-framework"
+version = "1.0.0"
+description = "GitHub-ready Python Selenium framework with optional AI-assisted locator recovery and failure analysis"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [{name = "Aditya"}]
+dependencies = [
+  "selenium>=4.20,<5",
+  "pytest>=8,<9",
+  "pytest-html>=4,<5",
+  "pytest-xdist>=3,<4",
+  "PyYAML>=6,<7",
+  "python-dotenv>=1,<2",
+  "openai>=1.40,<3",
+]
+
+[project.optional-dependencies]
+dev = [
+  "ruff>=0.6,<1",
+  "mypy>=1.10,<2",
+  "pre-commit>=3.7,<5",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-markers"
+testpaths = ["tests"]
+markers = [
+  "smoke: fast critical-path tests",
+  "regression: broader functional coverage",
+  "ai: tests for AI-assisted capabilities",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+check_untyped_defs = true
+ignore_missing_imports = true

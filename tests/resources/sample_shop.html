@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Shop Test App</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem; max-width: 900px; }
+    header { display: flex; justify-content: space-between; align-items: center; }
+    .panel { border: 1px solid #ccc; border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+    .products { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .product { border: 1px solid #ddd; border-radius: 8px; padding: 1rem; }
+    label { display: block; margin: .5rem 0; }
+    input { padding: .5rem; }
+    button { padding: .5rem .8rem; cursor: pointer; }
+  </style>
+</head>
+<body>
+<header><h1>AI Shop</h1><div>Cart: <span id="cart-count">0</span></div></header>
+<section class="panel" aria-label="Login">
+  <label>Username <input id="username" name="username" autocomplete="username" /></label>
+  <label>Password <input id="password" name="password" type="password" autocomplete="current-password" /></label>
+  <button data-testid="login-button" type="button">Sign in</button>
+  <p id="login-message" role="status"></p>
+</section>
+<section class="panel">
+  <label for="product-search">Search products</label>
+  <input id="product-search" name="productSearch" data-testid="product-search" aria-label="Product search" />
+</section>
+<section class="products" id="products">
+  <article class="product" data-testid="product-card" data-name="Laptop Stand"><h2>Laptop Stand</h2><button data-testid="add-to-cart" data-product="Laptop Stand">Add</button></article>
+  <article class="product" data-testid="product-card" data-name="Mechanical Keyboard"><h2>Mechanical Keyboard</h2><button data-testid="add-to-cart" data-product="Mechanical Keyboard">Add</button></article>
+  <article class="product" data-testid="product-card" data-name="USB-C Hub"><h2>USB-C Hub</h2><button data-testid="add-to-cart" data-product="USB-C Hub">Add</button></article>
+</section>
+<script>
+  const message = document.querySelector('#login-message');
+  document.querySelector('[data-testid="login-button"]').addEventListener('click', () => {
+    const user = document.querySelector('#username').value;
+    const pass = document.querySelector('#password').value;
+    message.textContent = user === 'demo' && pass === 'secret' ? 'Welcome, demo!' : 'Invalid credentials';
+  });
+  document.querySelector('#product-search').addEventListener('input', event => {
+    const term = event.target.value.toLowerCase();
+    document.querySelectorAll('[data-testid="product-card"]').forEach(card => {
+      card.style.display = card.dataset.name.toLowerCase().includes(term) ? 'block' : 'none';
+    });
+  });
+  let count = 0;
+  document.querySelectorAll('[data-testid="add-to-cart"]').forEach(button => {
+    button.addEventListener('click', () => {
+      count += 1;
+      document.querySelector('#cart-count').textContent = String(count);
+    });
+  });
+</script>
+</body>
+</html>
